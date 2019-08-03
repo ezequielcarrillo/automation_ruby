@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="automation">
+
+<head>
+    <meta http-equiv="Content-Type" charset="UTF-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="description" content="Belatrix sofware">
+    <meta name="keywords" content="automation">
+    <meta name="author" content="ezequiel carrillo">
+    <title>Automation</title>
+    <!-- vendor -->
+    <link rel="stylesheet" href="./css/vendor/jquery-ui-1.10.4.css">
+    <link rel="stylesheet" href="./css/vendor/bootstrap.min.css">
+    <!-- custom -->
+    <link rel="stylesheet" href="./css/custom/layout.css">
+    <link rel="stylesheet" href="./css/custom/common_toolbar.css">
+    <link rel="stylesheet" href="./css/custom/side_panel.css">
+    <link rel="stylesheet" href="./css/custom/dialogs.css">
+    <link rel="stylesheet" href="./css/custom/action_panel.css">
+    <!-- vendor -->
+    <script src="./js/vendor/jquery-1.10.2.js"></script>
+    <script src="./js/vendor/jquery-ui-1.10.4.js"></script>
+    <script src="./js/vendor/angular.js"></script>
+    <script src="./js/vendor/angular-filter.min.js"></script>
+    <script src="./js/vendor/ui-bootstrap-tpls-0.9.0.js"></script>
+    <script src="./js/vendor/ui-bootstrap-tpls-0.12.0.js"></script>
+    <!-- custom -->
+    <script src="./js/custom/resize_reverse.js"></script>
+    <script src="./js/custom/app.js"></script>
+    <script src="./js/custom/sharedController.js"></script>
+    <script src="./js/custom/layoutController.js"></script>
+    <script src="./js/custom/actionPanelController.js"></script>
+    <script src="./js/custom/dragDirectives.js"></script>
+    <script src="./js/custom/loginController.js"></script>
+    <script src="./js/custom/menuController.js"></script>
+</head>
+
+<body>
+    <nav>
+        <ul class="n" ng-controller="menuController">
+            <h3 class='n_tittle'></h3>
+            <!--   <li><a href='/Repository'>Web Elements</a></li> -->
+            <li><a href='/pageObject'>Page Object</a></li>
+            <li><a href='/keywords'>keywords</a></li>
+            <li><a href='/Tests'>Tests</a></li>
+            <li><a href='/Suites'>Suites</a></li>
+            <li><a href='/Libraries'>Libraries</a></li>
+            <li><a href='/Reports'>Reports</a></li>
+            <div ng-controller="login">
+                <li class='userName'><a>Welcome <%= @user_name %></a>
+                    <ul>
+                        <li class='logout'><a ng-click='logout()'>Logout</a></li>
+                        <li class='logout'><a href='/help'>Help</a></li>
+                    </ul>
+                </li>
+            </div>
+        </ul>
+    </nav>
+    <section id="content" ng-controller="Layout">
+        <div class='' ng-controller="AlertDemoCtrl">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+        <div class='' ng-controller="successDemoCtrl">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+        <%= yield %>
+    </section>
+</body>
+
+</html>

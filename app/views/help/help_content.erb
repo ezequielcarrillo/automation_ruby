@@ -1,0 +1,80 @@
+<div class='default'>Welcome, Select any topic from the left panel to help you with that</div>
+<div class='objects'>
+	<h4>Add objects and folders (elements, components, tests, suites) to the left tree pannel</h4>
+	<p>Whether you are on Repository, pageObject, Tests or Suite page, a Side panel is displayed at the left side with a toolbar at the top.</p>
+	<img src='/images/toolbar.PNG'/>
+	<p>To start adding object just click on the (+) plus button, a dialog will be displayed , enter the name of the object you want to create and select the type (Folder or object),
+	create a folder hierarchy to structure your project. <span>see the screenshot</span></p>
+	<img src='/images/add_element.PNG'/>
+	<p>If the element created have a typo or you just want to rename it , click on the (pencil) edit icon on the toolbar panel, a dialog will be displayed.</p>
+	<img src='/images/rename_element.PNG'/>
+	<p>In order to delete an element for the side panel just click on Delete button( trash icon). a confirmation dialog will be displayed to confirm your action.</p>
+	<img src='/images/delete_element.PNG'/>
+	<p>Some of the options on the tollbar panel will be dianmically displayed.</p>
+	<p>You will find to main panel on the app The left and the righ panel</p>
+	<p>Elements on the right pannel are used to drag and drop them into action panel to create noe components, tests or suites</p>
+	<p>Depending on which page are you on those pannel will show different info</p>
+	<p>Repository Page - Left panel will display Elements , Right panel will not be displayed</p>
+	<p>pageObject Page - Left panel will display pageObject , Right panel will show elements</p>
+	<p>Tests Page - Left panel will display Tests , Right panel will show pageObject</p>
+	<p>Suite Page - Left panel will display Suites , Right panel will show Tests</p>
+	<img src='/images/panels.PNG'/>
+</div>
+<div class='elements'>
+	<h4>Map UI elements (text boxes, button, select list and much more)</h4>
+	<p>To start mapping  ui element just nedd to navigate to the Repository page, once there created an object, select the object you just created.</p>
+	<p>an action pannel will be displayed, on the details tab you can add a brief desciption about the element.</p>
+	<img src='/images/details.PNG'/>
+	<p>On the Properties tab a table will be displayed so you can add some properties to the object to make it unique when trying to identify it</p>
+	<img src='/images/properties.PNG'/>
+	<p>On the Details tab you cann see in which components this element is used</p>
+</div>
+<div class='components'>
+	<h4>Create Page Objects by grouping UI elements form the Repository</h4>
+	<p>Navigate to the Component page and Select or created an object on the left panel,</p>
+	<p>on the details tab add a brief description about what does the component
+	eg: login form (user textbox, pass texbox and login button)</p>
+	<p>on the screenshot tab you can upload a scheenshot of the component so you easiy can see what does the component</p>
+	<img src='/images/details.PNG'/>
+	<p>On the scripted tab you can ad you code to the component when you ar working with nested UIs or complicated workflows</p>
+	<img src='/images/scripted.PNG'/>
+	<p>on the Parameters tab you will nedd to add some parameters (if needed) that will be uses on your tests
+	add those parameter by clicking on Add Param button</p>
+	<p>A parameter is need for every automation object that you want to create</p>
+	<p>eg: lets say that you have a component with a text box and two buttons, you will need a params for the textbox that is the value that will be enter on that text box </p>
+	<p>and then a params for each button that will recieve TRUE or FALSE  </p>
+	<p>where flase is to excecute that object </p>
+	<p>you will get somethign like this</p>
+	<p>text_box(:id=>'unique').set Parameter</p>
+	<p>button(:id=>'button1').click TRUE</p>
+	<p>button(:id=>'button2').click FALSE</p>
+	<p>so depending on wich test you use the component you can click on button one and skip the button two or the other way arround</p>
+	<p>al the selector that recieve parameter value FALSE will not be executed</p>
+	<img src='/images/parameters.PNG'/>
+	<p>On the automation tab you will nedd to add the element, action and paramters you want to execute
+	eg: element.action.param -> userTextBox-Set- userName param</p>
+	<p>elements can be easily added by drag and drop element form the right pannel</p>
+	<img src='/images/automation.PNG'/>
+</div>
+<div class='tests'>
+   <h4>Create test by adding pageObject to the tests workflow</h4>
+   <p>for creating new test you will need to select or add a tests on the left panel</p>
+   <p>Then on the workflow tab you need to expand the right pannelso you will see the components you have created, after that you can drag and drop the components to you test workflow</p>
+   <img src='/images/workflow.PNG'/>
+</div>
+<div class='suites'>
+  <h4>Create test Suites</h4>
+  <p>Creating suite is really easy as you did with your tests just select a suite and drag and drop your tests from the rigth pannel to the suite</p>
+  <img src='/images/suite.PNG'/>
+</div>	
+<div class='requirements'>	
+  <h4>Add Requirements to the tests</h4>
+  <p>Navigate to the Requirements Page, once there select a test from the left panel </p>
+  <p>if you havent created a test jetm you can do it form the requirements page on the left panel </p>
+  <img src='/images/add_requirements.PNG'/>
+</div>		
+<div class='settings'>	
+  <h4>Upload libraries to reuse common method among your components</h4>
+  <p>Just click on Upload and slect a librarie you want to include on your tests</p>
+  <img src='/images/add_libraries.PNG'/>
+</div>

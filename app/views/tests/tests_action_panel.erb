@@ -1,0 +1,113 @@
+<section class='action_panel' ng-controller="TestSet">
+    <div ng-show='isSelected() == 1'>
+        <div id="tabs">
+            <ul>
+                <li><a href="#b">Workflow</a></li>
+                <li><a href="#g">Results History</a></li>
+            </ul>
+            <div id="b">
+                <div class='actions'>
+                    <button ng-show="workflowChange()"   ng-click='saveTestWorkflow()'>Save</button>
+                    <button ng-hide="selectedComponent()" ng-click='deleteTestWorkflow()'>Delete</button>
+                    <button ng-disabled="testEmpty()" ng-click='runTest()'>Run Test</button>
+                </div>
+                <div class='w_detail_class'>
+                    <div>created by :<span><small>{{dataTransfer.data[0].created_by}}</small></span><span><small>{{dataTransfer.data[0].created_at}}</small></span></div>
+                    <div>Modified by :<span><small>{{dataTransfer.data[0].modified_by}}</small></span><span><small>{{dataTransfer.data[0].modified_at}}</small></span></div>
+                    <div ng-if='dataTransfer.data[1].dependencies.length >= 1'>Used In {{dataTransfer.data[1].dependencies.length}} Suite:{{dataTransfer.data[1].dependencies.object_name}}</div>
+                    <div ng-if='dataTransfer.data[1].dependencies.length == 0'>This Test is not used in any Suite</div>
+                </div>
+                <style>
+ 
+                #trash { float: right; width: 50px; min-height: 50px; padding: 1%; }
+                </style>
+                <div  trash id='trash' class='trash' ng-if="dropworkflow.length > 0 ">
+                    <li title="Delete" id="delete_item" class="ui-state-default ui-corner-all" ng-click="removeSuiteTests($event)">
+                        <span class="ui-icon ui-icon-trash"></span>
+                    </li>
+                </div>
+                <div id="depend">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Steps</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody sortable  >
+                        <tr drag_d class='testcomp new' id="{{item.object_id}}" ng-model='dropworkflow' ng-dblclick="getKeywordData($event)" ng-repeat="item in dropworkflow track by $index">
+                            <td><input disabled class='index' type='text' ng-model="item.execution_order" /></td>
+                            <td class='new' ng-click="if(item.object_key == 'key') toggleParams($event)" id="{{item.object_id}}" type={{item.object_key}} >{{item.object_name}}</td>
+                            <td ng-if="item.object_description.length >1 && item.object_key == 'key'" >{{item.object_description}}</td>
+                            <td class='param'>
+                                <table>
+                                    <tr ng-repeat="param in item.parameters track by $index">
+                                        <td class='input' id="{{param.param_id}}">{{param.parameter_name}}</td>
+                                        <td><input placeholder={{param.parameter_description}}.. ng-model=param.param_value /></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr  id='{{component.object_id}}' ng-click="select($event)" ng-dblclick="getKeywordData($event)"  type={{component.browser}} class="testcomp" ng-repeat="component in dataTransfer.data[1].workflow  | orderBy:'execution_order'">
+                            <td><input ng-change='po()' disabled class='index' type='text' ng-model="component.execution_order" /></td>
+                            <td id='{{component.object_id}}' ng-click='toggleParams($event)' class='name' >{{component.object_name}}</td>
+                            <td ng-if="component.object_description.length >1 && component.browser == 'key'" >{{component.object_description}}</td>
+                            <td class='param' style="display: none;">
+                                <table>
+                                    <tr ng-repeat="params in component.parameters">
+                                        <td id='' class='input'>{{params.parameter_name}}</td>
+                                        <td><input ng-change='po()' placeholder={{params.parameter_description}}... ng-model=params.param_value  />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <!---   <img class='component_preview' src='pic/{{component.object_id}}' style="width:15%; height:10%;" >-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td drop-component class='compDrop' colspan="3">Drop Function or Keyword Here</td>
+                        </tr>
+                    </tbody>
+                </table>
+                        <!-- THIS DIV SHOULD BE A TR AND SHOULD BE DISPLAYED BELOW THE TR SELECTED-->
+                      <div  draggable="true" ng-show='showWorkflowData() == true' class='keywordParamsDetails modal-content'>  
+                        <a class="close_d">close</a>
+                        <table>
+                           <tr  ng-repeat="function in keywordsFunctions[0]"> 
+                             <td>{{function.object_name}}</td>
+                             <td class='param'>
+                                <table>
+                                   <tr ng-repeat="parameters in function.parameters">
+                                      <td>{{parameters.parameter_name}}</td>
+                                      <td><input placeholder={{parameters.parameter_description}}... ng-model=parameters.param_value /></td>
+                                   </tr>
+                                </table>
+                             </td>
+                           </tr>
+                        </table>
+                      </div>  
+                <div class='description'>        
+                    <button ng-disabled="dataTransfer.data[0].object_description.length == 0" ng-click="saveTestDetails()">Save Description</button><br/>
+                    <textarea class='comment' ng-model=dataTransfer.data[0].object_description></textarea>
+                </div>
+            </div>
+            <div id="g">
+
+                <div ng-show="dataTransfer.data[1].results_history.length > 0"></div>
+                <ul class='results_history' ng-repeat="results in dataTransfer.data[1].results_history">
+                    executed_at: {{results.time_stamp}}<br/>
+                    <li>
+                        {{results.error_log}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-hide='isSelected() == 1'>
+        <p>Please Select Test</p>
+    </div>
+</section>

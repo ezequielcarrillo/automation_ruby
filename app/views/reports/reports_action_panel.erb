@@ -1,0 +1,10 @@
+<section class='action_panel'  ng-controller="Reports">
+ <div class='report_details' ng-repeat='result in details'>
+    <div class='name'>{{result.object_name}}</div>
+    <div class='time'>{{result.time_stamp}}</div>
+    <div class='status' ng-bind="{0: 'Passed', 1: 'Failed'}[result.test_status]"></div>
+    <a class='expand' ng-show='result.test_status == 1' ng-init="clickedh=false" ng-model="clickedh"  ng-click="clickedh=true">expand</a>
+    <div class='log' ng-show="clickedh">{{result.error_log}}</div>
+    <button ng-if='result.test_status == 1' ng-show="clickedh">Run test</button>
+ </div>
+</section>

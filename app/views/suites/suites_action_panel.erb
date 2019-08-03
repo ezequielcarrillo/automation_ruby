@@ -1,0 +1,31 @@
+<section class='action_panel' ng-controller="SuiteSet">
+    <div ng-show='isSelected() == 1' ng-model='dataTransfer'>
+        <div class='suite_actions'>
+            <button class='save' ng-click="saveSuiteTests()">Save</button>
+            <button ng-disabled="suiteEmpty()" ng-click='runSuite()'>Run Suite</button>
+        </div>
+        <div class='multipleDrop' multi-drop>
+            <div class='new' ng-model="multidrop" ng-repeat="item in multidrop track by $index" id='{{item.id}}'>{{item.text}}
+                <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="removeNewTests($event)">
+                    <span class="ui-icon ui-icon-trash"></span>
+                </li>
+            </div>
+            <div class='test_list' id={{test.object_id}} ng-repeat="test in dataTransfer.data[1].tests">
+                <div class='test_name'>{{test.object_name}}</div>
+                <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="removeSuiteTests($event)">
+                    <span class="ui-icon ui-icon-trash"></span>
+                </li>
+                <br/>
+                <a>{{test.result.time_stamp}}</a><a class='result'>{{test.result.result}}</a><a class='log' ng-bind="{0: 'Passed', 1: 'Failed'}[test.result.test_status]"></a>
+            </div>
+            <div class='here'>Drop Test Here</div>
+        </div>
+        <div class='detail_class'>
+            <div>created by :<span>{{dataTransfer.data[0].created_by}}</span> created at :<span>{{dataTransfer.data[0].created_at}}</span></div>
+            <div>Modified by :<span>{{dataTransfer.data[0].modified_by}}</span>Modified at :<span>{{dataTransfer.data[0].modified_at}}</span></div>
+        </div>
+    </div>
+    <div ng-hide='isSelected() == 1'>
+        <p>Please Select an Element</p>
+    </div>
+</section>

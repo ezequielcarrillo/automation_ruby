@@ -1,0 +1,9 @@
+<section class='action_panel' ng-controller="Libraries">
+    <div class='content'>
+        <form method='post' action="/uploadLibraries" enctype="multipart/form-data" class='libs'>
+            Upload library:<input type='file' class='library' name='library' />
+            <input type="submit" value='Upload library' class='button' />
+        </form>
+        <textarea class='libraryDetail' readonly>{{dataTransfer.data[0].text}}</textarea>
+    </div>
+</section>

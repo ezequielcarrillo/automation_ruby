@@ -1,0 +1,35 @@
+<script src="./js/custom/sidePanelController.js"></script>
+<script src="./js/custom/dialogsController.js"></script>
+<script src="./js/custom/rightTreeController.js"></script>
+
+<div ng-controller="SidePanel">
+    <aside class='right_panel sidePanel'>
+        <ul class="ui-widget icon-collection" ng-controller="RightPanel">
+            <li ng-if='isSelected() > 0' title="Refresh" class="ui-state-default ui-corner-all" ng-click="reloadRightPanel()">
+                <span class="ui-icon ui-icon-refresh"></span>
+            </li>
+            <div ng-if="isLocation() =='/pageObject'">
+                <div ng-if="(isrightPanelElementSelected() && isSelected() > 0) ">
+                    <li class="ui-state-default ui-corner-all" id='edit_item' title="Edit Item" ng-click="openWebElementEditDialog('sm')">
+                        <span class="ui-icon ui-icon-pencil"></span>
+                    </li>
+                    <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="openWebElementRemoveDialog('sm')">
+                        <span class="ui-icon ui-icon-trash"></span>
+                    </li>
+                    <li class="ui-state-default ui-corner-all" id='edit_item' title="Edit Item" ng-click="shareWebElement('sm')">
+                        <span class="ui-icon ui-icon-shuffle"></span>
+                    </li>
+                </div>
+                <li ng-if='isSelected() > 0' title="Add new" id='new-item' class="ui-state-default ui-corner-all" ng-click="openWebElement()">
+                    <span class="ui-icon ui-icon-circle-plus"></span>
+                </li>
+        </ul>
+        <input type="text" class="" placeholder="search" ng-model="searchRightPanel" />
+        <div ng-controller='RightPanel'>
+            <ul>
+                <li drag ng-click="getSelectedElementData($event)" ng-repeat="item in rightTreeData.list | filter : searchRightPanel" type='{{item.object_type}}' key='{{item.browser}}' class='t_{{item.object_type}} {{item.browser}} panelItem' id={{item.object_id}}><span>{{item.object_name}}</span></li>
+            </ul>
+        </div>
+    </aside>
+    <div class='right_panel_bar' ng-click="toggleSidePanels($event)"></div>
+    </div>

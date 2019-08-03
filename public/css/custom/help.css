@@ -1,0 +1,79 @@
+section {}
+
+h3 {
+    color: #575252;
+    font-size: 20px;
+}
+
+h4 {
+    padding-left: 5%;
+    font-size: 15px;
+}
+
+h3,
+h4:hover {
+    cursor: pointer;
+    color: #000;
+}
+
+aside {
+    position: relative;
+    float: left;
+    padding-left: 2%;
+    overflow-y: auto;
+    width: 18%;
+}
+
+.sidePanel,
+.left_panel_bar {
+    display: none;
+}
+
+article>div:not(.default) {
+    display: none;
+}
+
+article {
+    position: relative;
+    float: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 80%;
+}
+
+article h4 {
+    width: 100%;
+    color: #000;
+    font-weight: bolder;
+}
+
+article p {
+    width: 100%;
+    margin-left: 5%;
+    padding-right: 5%;
+    padding-top: 5px;
+    display: list-item;
+    list-style-type: octal;
+}
+
+article img {
+    margin-left: 5%;
+}
+
+.selected {
+    background: #ddd;
+    padding: 5px;
+}
+
+img {
+    max-width: 50%;
+    max-height: 50%;
+}
+
+.default {
+    padding: 1%;
+    color: #645E5E;
+    font-size: x-large;
+    padding-left: 11%;
+    padding-top: 5%;
+}

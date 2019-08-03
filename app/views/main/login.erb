@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" charset="UTF-8" />
+        <meta http-equiv="content-language" content="en" />
+        <link rel="stylesheet" href="./css/custom/login.css">
+        <script src="./js/vendor/angular.js"></script>
+		<title>Automation LogIn</title>
+    </head>
+    <body>
+        <section>
+		    <div class='l_h'></div>
+            <div class='login' ng-controller="login">
+                <form action='/login' method='post'>
+                  <input id='name' type='text' class='box' name='username' placeholder="USERNAME" required autocomplete="off"/> <br/>
+                  <input type='password' class='box' name='pass' placeholder="PASSWORD" required /> <br/>
+                  <input type='submit' value='Login'/>
+                  <p class='error'><%= @message %></p>
+                  <input class='remember' type='checkbox' ng-click="remember" checked/>Remember me
+                </form>
+				 <p><a class="revision">revision:<%= @revision %></a></p>
+            </div>
+        </section>
+    </body>
+</html>

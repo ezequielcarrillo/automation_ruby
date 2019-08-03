@@ -1,0 +1,117 @@
+<script src="./js/custom/sidePanelController.js"></script>
+<script src="./js/custom/dialogsController.js"></script>
+<script src="./js/custom/rightTreeController.js"></script>
+
+<div>
+    <script type="text/ng-template" id="addNewItemDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add New Item</h3>
+        </div>
+        <div class="modal-body">
+            <input type='text' class='itemName' ng-model='objectName' name='objectName' autofocus ng-maxlength="45">
+            <select class='type'>
+        <option ng-if="selectedType() < 0" id='0'>Folder</option>
+        <option id='1'>Item</option>
+      </select>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-disabled="objectName.length == 0" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="deleteDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Remove Item:{{selectedName}}</h3>
+        </div>
+        <div class="modal-body" ng-model="selectedName">
+            <p>Are you sure you want to delete <span class='notice'>{{selectedName}}</span>?, this object cannot be recovered.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="remove()">Remove</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="editDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Item :{{selectedName}}</h3>
+        </div>
+        <div class="modal-body">
+            <input type='text' class='editName_box' name='editName' ng-model="selectedName" autofocus/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-disabled="selectedName.length == 0" ng-click="edit()">Edit</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="addNewItemWebElementDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Add New Web Element</h3>
+        </div>
+        <div class="modal-body">
+            <input type='text' class='itemName' ng-model='objectName' name='objectName' autofocus ng-maxlength="45">
+            <select class='type'>
+        <option id='1'>Item</option>
+      </select>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-disabled="objectName.length == 0" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="deleteWebElementDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Remove Web Element:{{selectedName}}</h3>
+        </div>
+        <div class="modal-body" ng-model="selectedName">
+            <p>Are you sure you want to delete <span class='notice'>{{selectedName}}</span>?, this object cannot be recovered.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="remove()">Remove</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="editWebElementDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Web Element :{{selectedName}}</h3>
+        </div>
+        <div class="modal-body">
+            <input type='text' class='editName_box' name='editName' ng-model="selectedName" autofocus/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-disabled="selectedName.length == 0" ng-click="edit()">Edit</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>
+
+<div>
+    <script type="text/ng-template" id="shareWebElementDialog.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Copy Web Element :{{selectedName}}</h3>
+        </div>
+        <div class="modal-body" class='share'>
+           <div ng-repeat='page in pageObjects.list' >
+                <input type="checkbox"  name="{{page.object_name}}" value="{{page.object_id}}">{{page.object_name}}<br>
+            </div> 
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-disabled="selectedName.length == 0" ng-click="shareWebElement()">Copy</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>

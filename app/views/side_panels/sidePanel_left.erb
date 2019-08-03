@@ -1,0 +1,17 @@
+<script src="./js/custom/sidePanelController.js"></script>
+<script src="./js/custom/dialogsController.js"></script>
+<script src="./js/custom/leftTreeController.js"></script>
+<script src="./js/custom/alertController.js"></script>
+
+<div ng-controller="SidePanel">
+    <aside class='left_panel sidePanel'>
+        <%= erb :common_toolbar_side_panel %>
+            <input type='text' class='search' placeholder="search" ng-model="searchLeftPanel" />
+            <div class='s' ng-controller='LeftPanel'>
+                <ul class='j' ng-model="leftTreeData">
+                    <li  ng-click="getSelectedElementData($event)" ng-repeat="item in leftTreeData.list | filter : searchLeftPanel" type='{{item.object_type}}' class='t_{{item.object_type}} panelItem' id={{item.object_id}}><span>{{item.object_name}}</span></li>
+                </ul>
+            </div>
+    </aside>
+    <div class='left_panel_bar' ng-click="toggleSidePanels($event)"></div>
+</div>

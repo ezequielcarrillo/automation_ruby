@@ -1,0 +1,26 @@
+<script src="./js/custom/toolbarController.js"></script>
+
+<div class='side_panel_toolbar' ng-controller="Toolbar">
+    <ul class="ui-widget icon-collection">
+        <div ng-if='isSelected() > 0'>
+            <li ng-hide="toolbarRequired()=='/Libraries'" class="ui-state-default ui-corner-all" id='edit_item' title="Edit Item" ng-click="openEditDialog('sm')">
+                <span class="ui-icon ui-icon-pencil"></span>
+            </li>
+            <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="openRemoveDialog('sm')">
+                <span class="ui-icon ui-icon-trash"></span>
+            </li>
+        </div>
+        <li title="Refresh" id='refresh-sidePanel' class="ui-state-default ui-corner-all" ng-click="reloadPanel()">
+            <span class="ui-icon ui-icon-refresh"></span>
+        </li>
+        <li title="Search" id='tree_filter_box' class="ui-state-default ui-corner-all" ng-click="toggleSearchBox($event)">
+            <span class="ui-icon ui-icon-search"></span>
+        </li>
+        <div ng-hide="toolbarRequired()=='/Libraries' || selectedType() == 1">
+            <li title="Add new" id='new-item' class="ui-state-default ui-corner-all" ng-click="open()">
+                <span class="ui-icon ui-icon-circle-plus"></span>
+            </li>
+        </div>
+    </ul>
+</div>
+<%= erb :dialogs %>

@@ -1,0 +1,198 @@
+<section class='action_panel' ng-controller="pageObject">
+    <div>
+        <div id="tabs">
+            <ul>
+                <li ng-show='isSelected() == 1'><a href="#c">Function</a></li>
+                <li ng-show='isSelected() == 1'><a href="#a">Details</a></li>
+                <li ><a href="#b">Web Elements</a></li>
+            </ul>
+            <div ng-show='isSelected() == 1' id="c">
+                <button ng-hide="paramsEmpty()" ng-click="saveComponentParameter()">Save</button>
+                <button ng-click="addParameter($event)">Add Param</button>
+                <table>
+                    <thead ng-hide="paramsEmpty() == true">
+                        <tr>
+                            <td ng-click="params()">Param Name</td>
+                            <td>Param Description</td>
+                            <td>Default Value</td>                        
+                            <td></td>
+                            <tr/>
+                    </thead>
+                    <tbody class='p' ng-model='sofa' >
+                        <tr class='paramrow sofa' ng-repeat="s in sofa track by $index">
+                            <td><input type='text' class='name' placeholder='Name' /></td>
+                            <td><input type='text' class='desc' placeholder='Description' /></td>
+                            <td><input type='text' class='value' placeholder='default Value' /></td>
+                            <td>
+                                <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="removeNewParam($event)">
+                                    <span class="ui-icon ui-icon-trash"></span>
+                                </li>
+                            </td>
+                        </tr>
+                        <tr id='{{param.id}}' class='paramrow' ng-repeat="param in dataTransfer.data[1].parameters">                           
+                            <td><input type='text' class='name' placeholder="Name" ng-model=param.parameter_name /></td>
+                            <td><input type='text' class='desc' placeholder="Description" ng-model=param.parameter_description /></td>
+                             <td><input type='text' class='value' placeholder="default Value" ng-model=param.parameter_value /></td>
+                            <td>
+                                <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="deleteParam($event)">
+                                    <span class="ui-icon ui-icon-trash"></span>
+                                </li>
+                            </td>                             
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="parameters">
+                    <button ng-hide='paramsEmpty()' ng-click="addfields()">Add Actions</button>
+                    <button ng-hide="autoEmpty()" ng-click="saveComponentAutomation()">Save</button>
+                    <table>
+                        <thead>
+                            <tr ng-hide="autoEmpty() == true">
+                                <td>Element</td>
+                                <td>Operation</td>
+                                <td>Param</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody class='ad' sortable ng-model='automationObject'>
+                            <tr ng-repeat="s in automationObject track by $index" class='autorow' id='{{auto.id}}' ng-repeat="auto in dataTransfer.data[1].automation">
+                                <td class='dropzone element' id='{{auto.object_id}}' drop>{{auto.object_name}}</td>
+                                <td>
+                                    <select class='operation' ng-model="List" ng-options="operation.action_name for operation in dataTransfer.data[1].operations track by operation.id">
+                                      <option value="">-- choose operation --</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select  class='param'>
+                                      <option value='-1'>no-param</option>
+                                      <option ng-repeat="param in dataTransfer.data[1].parameters" value='{{param.id}}'>{{param.parameter_name}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                 <select class='true_false'>
+                                      <option value='1'>true</option>
+                                      <option value='0'>false</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="removeNewAuto($event)">
+                                        <span class="ui-icon ui-icon-trash"></span>
+                                    </li>
+                                </td>
+                            </tr>
+                            <tr class='autorow' id='{{auto.id}}' ng-repeat="auto in dataTransfer.data[1].automation">
+                                <td class='dropzone element' id='{{auto.object_id}}' drop>{{auto.object_name}}</td>
+                                <td>
+                                    <select  class='operation'>
+                                      <option value='{{auto.action_id}}' selected>{{auto.action_name}}</option>
+                                      <option ng-repeat="operation in dataTransfer.data[1].operations">{{operation.action_name}}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select class='param'>
+                                      <option value='{{auto.param_id}}' selected>{{auto.parameter_name}}</option>
+                                      <option ng-repeat="param in dataTransfer.data[1].parameters" value='{{param.id}}'>{{param.parameter_name}}</option>
+                                    </select>
+                                </td>
+                                <!-- show if operation is contains-->
+                                <td><a>{{auto.assert}}</a>
+                                 <select ng-show="auto.assert == '1' || auto.assert == '0'" class='true_false'>
+                                      <option value='1'>true</option>
+                                      <option value='0'>false</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <li title="Delete" id='delete_item' class="ui-state-default ui-corner-all" ng-click="deleteAuto($event)">
+                                        <span class="ui-icon ui-icon-trash"></span>
+                                    </li>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="automation">
+                    <button ng-disabled="dataTransfer.data[0].object_script.length == 0  || dataTransfer.data[0].object_script == null" ng-click="saveComponentScript()">Save Script</button>
+                    <textarea class='script' ng-model=dataTransfer.data[0].object_script></textarea>
+                </div>
+                <div class='temp'>
+                </div>
+            </div>
+            <!-- WEB ELEMENTS -->
+            <div id="b">
+                <div class='w_e' ng-show='isWebElementSelected() == 1' ng-controller="RightPanel">
+                    <div class='content'>
+                        <div class='container_prop'>
+                            Select Locator:<select id='locator'>
+                                    <option selected="selected" value={{dataTransfer.data[dataTransfer.data.length-1].webElement[0].locator}}>{{dataTransfer.data[dataTransfer.data.length-1].webElement[0].locator}}</option>
+                                    <option value="tag">class</option>
+                                    <option value="css">css</option>
+                                    <option value="id">id</option>
+                                    <option value="link">link</option>
+                                    <option value="name">name</option>
+                                    <option value="xpath">xpath</option>
+                                    <option value="index">index</option>
+                                    <option value="text">text</option>
+                                 </select> Locator Value<input id='locatorvalue' ng-model=dataTransfer.data[dataTransfer.data.length-1].webElement[0].locator_value />
+                            <button ng-click="saveObjectsProperties()">Save</button>
+                        </div>
+                    </div>
+                    <form method="post" action='/uploadScreenshot' enctype="multipart/form-data" class='screenshot'>
+                        <input type='file' name='screenshot' />
+                        <input type='hidden' name='component_id' value={{dataTransfer.data[0].object_id}} />
+                        <input type='submit' value='Upload ScreenShot' class='button'>
+                    </form>
+                    <p ng-show="dataTransfer.data[0].object_screenshot_name.length == null">No screenshoot was added</p>
+                    <img ng-if="dataTransfer.data[0].object_screenshot_name.length > 0" src='pic/{{dataTransfer.data[0].object_id}}' class='preview' /><br/>
+                    <h5>{{dataTransfer.data[0].object_screenshot_name}}</h5>
+                    <input ng-if="dataTransfer.data[0].object_screenshot_name.length >0" type='submit' value='Delete ScreenShot' class='button' ng-click="deleteScreenshot()" />
+
+                </div>
+                <div ng-hide='isWebElementSelected() == 1'>
+                    <p>Please Select a Web Element</p>
+                </div>
+            </div>
+            <!-- WEB ELEMENTS -->
+            <div ng-show='isSelected() == 1' id="a">
+                <div class='step_detail_class'>
+                    <div>created by :<span><small>{{dataTransfer.data[0].created_by}}</small></span><span><small>{{dataTransfer.data[0].created_at}}</small></span></div>
+                    <div>Modified by :<span><small>{{dataTransfer.data[0].modified_by}}</small></span> <span><small>{{dataTransfer.data[0].modified_at}}</small></span></div>
+                </div>
+                <div class='step_comment'>
+                    <table>
+                        <tr>
+                            <td>
+                                <button ng-disabled="dataTransfer.data[0].object_description.length == 0" ng-click="saveComponentDetails()">Save Coments</button>
+                            </td>
+                            <td>
+                                <textarea class='comment' ng-model="dataTransfer.data[0].object_description"></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class='dependencies_container'>
+                    <h4 ng-if='dataTransfer.data[1].dependencies.length >= 1'>Used In {{dataTransfer.data[1].dependencies.length}} Tests:</h4>
+                    <h4 ng-if='dataTransfer.data[1].dependencies.length == 0'>This Page Object is not used in any Test</h4>
+                    <ul class='dependencies'>
+                        <li ng-repeat="dependencies in dataTransfer.data[1].dependencies">
+                            <div class='dp'>{{dependencies.object_name}}</div>
+                            <div class='by'>{{dependencies.created_by}}</div>
+                            <div class='at'>{{dependencies.created_at}}</div>
+                        </li>
+                    </ul>
+                    <h4 ng-if='dataTransfer.data[1].dependencies_keywords.length >= 1'>Used In {{dataTransfer.data[1].dependencies_keywords.length}} Keyword:</h4>
+                    <h4 ng-if='dataTransfer.data[1].dependencies_keywords.length == 0'>This Page Object is not used in any Keyword</h4>
+
+                    <ul class='dependencies'>
+                        <li ng-repeat="dependencies_k in dataTransfer.data[1].dependencies_keywords">
+                            <div class='dp'>{{dependencies_k.object_name}}</div>
+                            <div class='by'>{{dependencies_k.created_by}}</div>
+                            <div class='at'>{{dependencies_k.created_at}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-hide='isSelected() == 1'>
+        <p>Please Select a Page Object</p>
+    </div>
+</section>

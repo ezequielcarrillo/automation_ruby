@@ -1,0 +1,16 @@
+.common_toolbar{
+    background: none repeat scroll 0 0 #ddd;
+    height: 40px;
+    width: 100%;
+}
+
+.ui-widget.icon-collection li {
+    height: 34px;
+    width: 34px;
+}
+
+.ui-widget.icon-collection li span.ui-icon {
+    float: left;
+    margin: 4px 8px;
+}
+
